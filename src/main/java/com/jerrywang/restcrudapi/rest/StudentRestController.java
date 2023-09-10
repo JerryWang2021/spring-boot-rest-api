@@ -3,9 +3,7 @@ package com.jerrywang.restcrudapi.rest;
 
 import com.jerrywang.restcrudapi.entity.Student;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -37,8 +35,16 @@ public class StudentRestController {
     @GetMapping("/students/{studentId}")
     public Student getStudent(@PathVariable int studentId) {
 
-        // just index into the list .. keep it simple for now
+        // just index into the list ... keep it simple for now
+
+        // check the studentId again list size
+
+        if ( (studentId >= theStudents.size()) || (studentId < 0)) {
+            throw new StudentNotFoundException("Student id not found - " + studentId);
+        }
 
         return theStudents.get(studentId);
     }
+
+
 }
